@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AURA Specialty Coffee & Roasters | Спешелти кофейня и обжарка</title>
+  <meta name="description" content="Спешелти кофейня и микро-обжарочная AURA. Свежий урожай SCA 86+, воронка V60, авторские напитки, зерно в пачках, открытые каппинги.">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: ['selector', '[data-theme="dark"]'],
+      theme: {
+        extend: {
+          colors: {
+            aura: {
+              primary: '#D97736',
+              dark: '#1A120B',
+              roast: '#271E17',
+              cream: '#FAF7F2',
+              surface: '#F3ECE2'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body class="bg-[#FAF7F2] dark:bg-[#120B08] text-[#2C221E] dark:text-[#F5EFEB] min-h-screen flex flex-col selection:bg-[#D97736] selection:text-white">
+
+  <!-- ================= TOP NOTICE BAR ================= -->
+  <div class="bg-[#1A120B] text-stone-300 text-xs py-2 px-4 border-b border-stone-800">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div id="roast-live-badge" class="flex items-center text-xs font-medium">
+        <span class="inline-block w-2 h-2 rounded-full bg-emerald-500 mr-2 status-pulse"></span>
+        Обжарка свежих лотов: Эфиопия и Кения каждый вторник и четверг
+      </div>
+      <div class="flex items-center gap-4 text-stone-400">
+        <span class="hidden sm:inline">г. Москва, ул. Покровка, 24</span>
+        <span class="text-amber-500 font-semibold">Пн–Вс: 08:00 – 22:00</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= HEADER & NAV ================= -->
+  <header class="sticky top-0 z-40 glass-panel border-b border-stone-200 dark:border-stone-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group cursor-pointer">
+        <div class="w-11 h-11 rounded-2xl bg-[#D97736] flex items-center justify-center text-white shadow-md shadow-[#D97736]/20 group-hover:scale-105 transition-transform">
+          <i data-lucide="coffee" class="w-6 h-6"></i>
+        </div>
+        <div>
+          <span class="font-serif text-2xl font-bold tracking-tight block text-stone-900 dark:text-stone-100 group-hover:text-[#D97736] transition-colors">
+            AURA
+          </span>
+          <span class="text-[10px] font-semibold tracking-widest uppercase text-stone-500 dark:text-stone-400 block -mt-1">
+            Specialty Roasters
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium">
+        <a href="#menu" class="hover:text-[#D97736] transition-colors cursor-pointer">Меню & Зерно</a>
+        <a href="#quiz" class="hover:text-[#D97736] transition-colors cursor-pointer flex items-center gap-1.5">
+          <i data-lucide="sparkles" class="w-4 h-4 text-[#D97736]"></i> Подбор вкуса
+        </a>
+        <a href="#calculator" class="hover:text-[#D97736] transition-colors cursor-pointer">Калькулятор V60</a>
+        <a href="#cupping" class="hover:text-[#D97736] transition-colors cursor-pointer">Каппинг & Бронь</a>
+        <a href="#about" class="hover:text-[#D97736] transition-colors cursor-pointer">О нас</a>
+      </nav>
+
+      <!-- Right Header Actions -->
+      <div class="flex items-center gap-3">
+        <!-- Theme Switcher -->
+        <button 
+          id="theme-toggle" 
+          class="btn-touch p-2.5 rounded-xl border border-stone-200 dark:border-stone-800 bg-white/70 dark:bg-stone-900/70 hover:border-[#D97736] transition-colors cursor-pointer flex items-center justify-center"
+          aria-label="Сменить тему оформления"
+        >
+          <span id="theme-icon-container">
+            <i data-lucide="moon" class="w-5 h-5 text-stone-700"></i>
+          </span>
+        </button>
+
+        <!-- Cart Trigger Button -->
+        <button 
+          id="cart-toggle-btn" 
+          class="btn-touch relative px-4 py-2.5 rounded-xl bg-[#D97736] hover:bg-[#C26325] text-white font-semibold text-xs flex items-center gap-2 shadow-sm hover:shadow transition-all cursor-pointer active:scale-95"
+          aria-label="Открыть корзину заказа"
+        >
+          <i data-lucide="shopping-bag" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Заказ</span>
+          <span 
+            id="cart-count-badge" 
+            class="scale-0 transition-transform duration-200 bg-stone-900 text-white text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center -mr-1"
+          >
+            0
+          </span>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ================= MAIN CONTENT ================= -->
+  <main class="flex-1">
+
+    <!-- ================= HERO SECTION ================= -->
+    <section class="relative overflow-hidden pt-12 pb-20 lg:pt-20 lg:pb-32">
+      <!-- Background Ambient Glow -->
+      <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] bg-gradient-to-tr from-[#D97736]/15 to-amber-200/20 dark:from-[#D97736]/10 dark:to-stone-800/20 blur-3xl rounded-full -z-10 pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <!-- Hero Text -->
+          <div class="lg:col-span-7 space-y-6">
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100 dark:bg-amber-950/60 border border-amber-300 dark:border-amber-800 text-xs font-semibold text-[#D97736]">
+              <i data-lucide="flame" class="w-3.5 h-3.5"></i>
+              <span>Третья волна кофе · Собственный ростер Giesen W6A</span>
+            </div>
+
+            <h1 class="font-serif text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-stone-900 dark:text-stone-50 leading-[1.08]">
+              Кофе, в котором <span class="text-[#D97736] italic">звучит</span> терруар.
+            </h1>
+
+            <p class="text-base sm:text-lg text-stone-600 dark:text-stone-300 max-w-2xl leading-relaxed">
+              Мы отбираем только микролоты спешелти зерна с оценкой SCA от 86 баллов. Прямой импорт от фермеров, бережная светлая обжарка и филигранная экстракция в каждой чашке.
+            </p>
+
+            <div class="flex flex-wrap items-center gap-4 pt-2">
+              <a 
+                href="#menu" 
+                class="btn-touch px-6 py-3.5 rounded-2xl bg-[#D97736] hover:bg-[#C26325] text-white font-bold text-sm flex items-center gap-2 shadow-lg shadow-[#D97736]/25 transition-all cursor-pointer hover:-translate-y-0.5"
+              >
+                <i data-lucide="coffee" class="w-4 h-4"></i>
+                <span>Смотреть меню кофейни</span>
+              </a>
+
+              <a 
+                href="#quiz" 
+                class="btn-touch px-6 py-3.5 rounded-2xl bg-white dark:bg-stone-900 border border-stone-300 dark:border-stone-700 hover:border-[#D97736] text-stone-800 dark:text-stone-200 font-semibold text-sm flex items-center gap-2 transition-all cursor-pointer hover:-translate-y-0.5"
+              >
+                <i data-lucide="sparkles" class="w-4 h-4 text-[#D97736]"></i>
+                <span>Пройти тест вкуса</span>
+              </a>
+            </div>
+
+            <!-- Trust Metrics Ribbon -->
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-8 border-t border-stone-200 dark:border-stone-800">
+              <div>
+                <span class="block font-serif text-2xl sm:text-3xl font-extrabold text-[#D97736]">88.5+</span>
+                <span class="text-xs text-stone-500 dark:text-stone-400">Средний балл SCA</span>
+              </div>
+              <div>
+                <span class="block font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-stone-100">48 ч</span>
+                <span class="text-xs text-stone-500 dark:text-stone-400">Свежесть обжарки</span>
+              </div>
+              <div>
+                <span class="block font-serif text-2xl sm:text-3xl font-extrabold text-stone-900 dark:text-stone-100">100%</span>
+                <span class="text-xs text-stone-500 dark:text-stone-400">Высокогорная арабика</span>
+              </div>
+              <div>
+                <span class="block font-serif text-2xl sm:text-3xl font-extrabold text-[#D97736]">Q-Grader</span>
+                <span class="text-xs text-stone-500 dark:text-stone-400">Контроль качества</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Hero Visual Collage -->
+          <div class="lg:col-span-5 relative">
+            <div class="relative mx-auto max-w-md lg:max-w-none">
+              <!-- Main Hero Image -->
+              <div class="rounded-3xl overflow-hidden shadow-2xl border-4 border-white dark:border-stone-800 relative aspect-[4/5] bg-stone-200 dark:bg-stone-800">
+                <img 
+                  src="https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?auto=format&fit=crop&w=1000&q=80" 
+                  alt="Specialty Coffee Pour Over V60" 
+                  class="w-full h-full object-cover"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-white">
+                  <span class="px-3 py-1 rounded-full bg-[#D97736] text-[11px] font-bold uppercase tracking-wider mb-2 inline-block">
+                    Лот недели
+                  </span>
+                  <h3 class="font-serif text-xl font-bold">Эфиопия Гуджи Хамбела</h3>
+                  <p class="text-xs text-stone-300 mt-1">Ноты белого жасмина, бергамота и сочного спелого персика</p>
+                </div>
+              </div>
+
+              <!-- Floating Card 1: Roasting Quality -->
+              <div class="absolute -bottom-6 -left-6 bg-white dark:bg-stone-900 p-4 rounded-2xl shadow-xl border border-stone-200 dark:border-stone-800 max-w-[210px] hidden sm:flex items-center gap-3 animate-float">
+                <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-[#D97736] flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="thermometer" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-stone-900 dark:text-stone-100">Giesen W6A</div>
+                  <div class="text-[11px] text-stone-500">Профиль Cropster</div>
+                </div>
+              </div>
+
+              <!-- Floating Card 2: Barista Champion -->
+              <div class="absolute -top-6 -right-6 bg-white dark:bg-stone-900 p-4 rounded-2xl shadow-xl border border-stone-200 dark:border-stone-800 max-w-[200px] hidden sm:flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="check-circle" class="w-5 h-5"></i>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-stone-900 dark:text-stone-100">Zero Defect</div>
+                  <div class="text-[11px] text-stone-500">Ручная переборка зерна</div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ================= MENU & BEANS CATALOG ================= -->
+    <section id="menu" class="py-16 sm:py-24 bg-stone-100/70 dark:bg-stone-950/40 border-y border-stone-200 dark:border-stone-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+          <div>
+            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#D97736] mb-2">
+              <i data-lucide="book-open" class="w-4 h-4"></i> Меню кофейни и обжарки
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+              Выбирайте напиток или забирайте пачку домой
+            </h2>
+          </div>
+
+          <!-- Search Bar -->
+          <div class="w-full md:w-72 relative">
+            <i data-lucide="search" class="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2"></i>
+            <input 
+              id="menu-search-input"
+              type="text" 
+              placeholder="Поиск сорта, десерта или вкуса..." 
+              class="w-full pl-10 pr-4 py-2.5 rounded-xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-800 dark:text-stone-200 focus:outline-none focus:ring-2 focus:ring-[#D97736]"
+            />
+          </div>
+        </div>
+
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap items-center gap-2 mb-10 overflow-x-auto pb-2">
+          <button data-category="all" class="filter-tab-btn active px-4 py-2 rounded-xl text-xs font-bold bg-[#D97736] text-white cursor-pointer transition-colors">
+            Все позиции
+          </button>
+          <button data-category="filter" class="filter-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-stone-200/70 text-stone-700 dark:bg-stone-800 dark:text-stone-300 hover:bg-stone-300 transition-colors cursor-pointer">
+            Фильтр & Альтернатива
+          </button>
+          <button data-category="espresso" class="filter-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-stone-200/70 text-stone-700 dark:bg-stone-800 dark:text-stone-300 hover:bg-stone-300 transition-colors cursor-pointer">
+            Эспрессо & Черный
+          </button>
+          <button data-category="milk" class="filter-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-stone-200/70 text-stone-700 dark:bg-stone-800 dark:text-stone-300 hover:bg-stone-300 transition-colors cursor-pointer">
+            С молоком & Рафы
+          </button>
+          <button data-category="beans" class="filter-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-stone-200/70 text-stone-700 dark:bg-stone-800 dark:text-stone-300 hover:bg-stone-300 transition-colors cursor-pointer">
+            Зерно в пачках (250г)
+          </button>
+          <button data-category="bakery" class="filter-tab-btn px-4 py-2 rounded-xl text-xs font-bold bg-stone-200/70 text-stone-700 dark:bg-stone-800 dark:text-stone-300 hover:bg-stone-300 transition-colors cursor-pointer">
+            Свежая выпечка
+          </button>
+        </div>
+
+        <!-- Menu Cards Grid -->
+        <div id="menu-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+          <!-- Populated by app.js -->
+        </div>
+
+        <!-- Empty State (when search returns 0) -->
+        <div id="menu-empty-state" class="hidden text-center py-16">
+          <div class="w-16 h-16 rounded-2xl bg-stone-200 dark:bg-stone-800 text-stone-400 flex items-center justify-center mx-auto mb-4">
+            <i data-lucide="search-x" class="w-8 h-8"></i>
+          </div>
+          <h3 class="font-serif text-lg font-bold text-stone-800 dark:text-stone-200 mb-1">Ничего не найдено</h3>
+          <p class="text-xs text-stone-500 max-w-sm mx-auto mb-4">Попробуйте изменить поисковый запрос или сбросить фильтры категорий.</p>
+          <button onclick="document.querySelector('.filter-tab-btn[data-category=all]').click(); document.getElementById('menu-search-input').value='';" class="px-4 py-2 rounded-xl bg-[#D97736] text-white text-xs font-bold cursor-pointer">
+            Сбросить фильтры
+          </button>
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= INTERACTIVE FLAVOR QUIZ ================= -->
+    <section id="quiz" class="py-16 sm:py-24">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#D97736] mb-2">
+            <i data-lucide="sparkles" class="w-4 h-4"></i> Интеллектуальный сомелье
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-3">
+            Подберите сорт кофе под ваш вкус за 3 вопроса
+          </h2>
+          <p class="text-sm text-stone-600 dark:text-stone-400 max-w-xl mx-auto">
+            Ответьте на три вопроса о ваших предпочтениях, и мы подберем лот с идеальным балансом кислотности и плотности.
+          </p>
+        </div>
+
+        <!-- Quiz Container -->
+        <div class="bg-white dark:bg-[#1A120C] rounded-3xl p-6 sm:p-10 border border-stone-200 dark:border-stone-800 shadow-xl">
+          
+          <div id="quiz-steps-container" class="space-y-8">
+            
+            <!-- Step 1 -->
+            <div>
+              <span class="text-xs font-bold text-[#D97736] uppercase tracking-wider block mb-1">Шаг 1 из 3</span>
+              <h3 class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100 mb-4">Как вы обычно предпочитаете пить кофе?</h3>
+              <div class="quiz-step-options grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button data-step="brewPreference" data-value="black" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Чистый черный</div>
+                  <div class="text-xs text-stone-500">Фильтр, воронка, американо без молока и сахара</div>
+                </button>
+                <button data-step="brewPreference" data-value="milk" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">С молоком</div>
+                  <div class="text-xs text-stone-500">Капучино, флэт уайт или латте на растительном молоке</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 2 -->
+            <div>
+              <span class="text-xs font-bold text-[#D97736] uppercase tracking-wider block mb-1">Шаг 2 из 3</span>
+              <h3 class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100 mb-4">Какой вкусовой профиль вам ближе?</h3>
+              <div class="quiz-step-options grid grid-cols-1 sm:grid-cols-2 gap-3">
+                <button data-step="flavorProfile" data-value="floral-citrus" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Цветы и цитрусы</div>
+                  <div class="text-xs text-stone-500">Чайное тело, бергамот, жасмин, белый персик</div>
+                </button>
+                <button data-step="flavorProfile" data-value="berries-juicy" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Сочные ягоды</div>
+                  <div class="text-xs text-stone-500">Черная смородина, ежевика, яркая сочная кислинка</div>
+                </button>
+                <button data-step="flavorProfile" data-value="tropical-sweet" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Тропики & Экзотика</div>
+                  <div class="text-xs text-stone-500">Манго, маракуйя, анаэробная ферментация, сочность</div>
+                </button>
+                <button data-step="flavorProfile" data-value="chocolate-nuts" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Шоколад и карамель</div>
+                  <div class="text-xs text-stone-500">Плотное тело, темный шоколад, жареный фундук</div>
+                </button>
+              </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div>
+              <span class="text-xs font-bold text-[#D97736] uppercase tracking-wider block mb-1">Шаг 3 из 3</span>
+              <h3 class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100 mb-4">Где и как будете готовить?</h3>
+              <div class="quiz-step-options grid grid-cols-1 sm:grid-cols-3 gap-3">
+                <button data-step="brewMethod" data-value="v60" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Воронка V60 / Кемекс</div>
+                  <div class="text-xs text-stone-500">Ручной пуровер</div>
+                </button>
+                <button data-step="brewMethod" data-value="aeropress" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Аэропресс / Турка</div>
+                  <div class="text-xs text-stone-500">Дома или в поездке</div>
+                </button>
+                <button data-step="brewMethod" data-value="espresso-machine" class="quiz-option-btn p-4 rounded-xl border border-stone-200 dark:border-stone-700 hover:border-[#D97736] text-left transition-all cursor-pointer">
+                  <div class="font-semibold text-sm text-stone-900 dark:text-stone-100">Кофемашина</div>
+                  <div class="text-xs text-stone-500">Автомат или рожок</div>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Quiz Result Display -->
+          <div id="quiz-result" class="hidden">
+            <div id="quiz-recommendation-content" class="mb-6">
+              <!-- Dynamically populated -->
+            </div>
+            <div class="text-center">
+              <button id="reset-quiz-btn" class="text-xs font-semibold text-stone-500 hover:text-stone-800 dark:hover:text-stone-200 underline cursor-pointer">
+                Пройти тест заново с другими параметрами
+              </button>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= BREW CALCULATOR & LIVE TIMER ================= -->
+    <section id="calculator" class="py-16 sm:py-24 bg-stone-100/70 dark:bg-stone-950/40 border-y border-stone-200 dark:border-stone-800">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center mb-12">
+          <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#D97736] mb-2">
+            <i data-lucide="scale" class="w-4 h-4"></i> Бариста-калькулятор & Таймер
+          </div>
+          <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100 mb-3">
+            Идеальная чашка V60 у вас дома
+          </h2>
+          <p class="text-sm text-stone-600 dark:text-stone-400 max-w-xl mx-auto">
+            Рассчитайте граммовку зерна, соотношение воды и контролируйте пролив встроенным таймером с подсказками.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+          
+          <!-- Controls Panel -->
+          <div class="lg:col-span-6 bg-white dark:bg-[#1A120C] p-6 sm:p-8 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-lg space-y-6">
+            <h3 class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100 border-b border-stone-100 dark:border-stone-800 pb-3 flex items-center gap-2">
+              <i data-lucide="sliders" class="w-4 h-4 text-[#D97736]"></i> Параметры рецепта
+            </h3>
+
+            <div>
+              <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-2">Способ заваривания</label>
+              <select id="brew-method" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-800 dark:text-stone-200">
+                <option value="v60">Hario V60 (Пуровер)</option>
+                <option value="aeropress">Aeropress (Прямой метод)</option>
+                <option value="frenchpress">French Press (Иммерсия)</option>
+              </select>
+            </div>
+
+            <div class="grid grid-cols-2 gap-4">
+              <div>
+                <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-2">Вес зерна (г)</label>
+                <input id="brew-grams" type="number" value="15" min="10" max="60" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs font-bold text-stone-900 dark:text-stone-100" />
+              </div>
+              <div>
+                <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-2">Пропорция (Ratio)</label>
+                <select id="brew-ratio" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-800 dark:text-stone-200">
+                  <option value="15">1:15 (Более плотная чашка)</option>
+                  <option value="16" selected>1:16 (Золотой стандарт SCA)</option>
+                  <option value="17">1:17 (Легкое чайное тело)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Calculation Output -->
+            <div class="p-4 rounded-2xl bg-amber-50/70 dark:bg-amber-950/20 border border-[#D97736]/20 space-y-3">
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-stone-600 dark:text-stone-400">Общий объем воды:</span>
+                <span id="calc-total-water" class="font-bold text-stone-900 dark:text-stone-100 text-sm">240 мл</span>
+              </div>
+              <div class="flex justify-between items-center text-xs">
+                <span class="text-stone-600 dark:text-stone-400">Вода на предсмачивание (Bloom):</span>
+                <span id="calc-bloom-water" class="font-bold text-[#D97736] text-sm">45 г</span>
+              </div>
+              <div class="text-[11px] text-stone-500 pt-2 border-t border-stone-200 dark:border-stone-800">
+                <span class="font-semibold text-stone-700 dark:text-stone-300">Рекомендация:</span> <span id="calc-grind-note">Средний помол (крупинки как морская соль), вода 93°C</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Interactive Live Timer Panel -->
+          <div class="lg:col-span-6 bg-white dark:bg-[#1A120C] p-6 sm:p-8 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-lg text-center">
+            <h3 class="font-serif text-lg font-bold text-stone-900 dark:text-stone-100 mb-6 flex items-center justify-center gap-2">
+              <i data-lucide="timer" class="w-5 h-5 text-[#D97736]"></i> Таймер экстракции
+            </h3>
+
+            <div class="py-6 my-2 bg-stone-50 dark:bg-stone-900/60 rounded-2xl border border-stone-200 dark:border-stone-800">
+              <div id="timer-display" class="font-mono text-5xl sm:text-6xl font-extrabold text-stone-900 dark:text-stone-100 tracking-wider">
+                00:00
+              </div>
+              <div id="timer-step-label" class="text-xs font-semibold text-stone-500 mt-3 px-4">
+                Нажмите «Старт пролива» перед первым заливом воды
+              </div>
+            </div>
+
+            <div class="flex items-center justify-center gap-3 mt-6">
+              <button 
+                id="timer-start-btn" 
+                class="btn-touch px-6 py-3 rounded-xl bg-[#D97736] hover:bg-[#C26325] text-white font-bold text-xs flex items-center gap-2 cursor-pointer shadow-sm transition-all"
+              >
+                <i data-lucide="play" class="w-4 h-4"></i> Старт пролива
+              </button>
+              <button 
+                id="timer-reset-btn" 
+                class="btn-touch px-4 py-3 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 text-stone-700 dark:text-stone-300 font-semibold text-xs flex items-center gap-2 cursor-pointer transition-all"
+              >
+                <i data-lucide="rotate-ccw" class="w-4 h-4"></i> Сброс
+              </button>
+            </div>
+
+            <div class="mt-8 text-left text-xs text-stone-500 space-y-1.5 border-t border-stone-100 dark:border-stone-800 pt-4">
+              <div class="flex items-center gap-2 font-medium">
+                <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> 0:00 - 0:45: Блум 45г воды и пауза для дегазации
+              </div>
+              <div class="flex items-center gap-2 font-medium">
+                <span class="w-1.5 h-1.5 rounded-full bg-sky-500"></span> 0:45 - 1:15: Плавный пролив до 140г
+              </div>
+              <div class="flex items-center gap-2 font-medium">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span> 1:15 - 2:00: Залив до 240г и завершение капель
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= RESERVATION & CUPPINGS ================= -->
+    <section id="cupping" class="py-16 sm:py-24">
+      <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          
+          <div class="lg:col-span-5 space-y-5">
+            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#D97736]">
+              <i data-lucide="users" class="w-4 h-4"></i> Сообщество и гости
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+              Бронь столика или открытый каппинг
+            </h2>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              Каждую субботу в 12:00 мы проводим бесплатную дегустацию свежих лотов вместе с нашим шеф-бариста. Вы также можете забронировать любимый столик в зале с видом на ростер.
+            </p>
+
+            <div class="space-y-3 pt-2">
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950 text-[#D97736] flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="calendar" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-stone-900 dark:text-stone-100">Каппинги каждую субботу</h4>
+                  <p class="text-[11px] text-stone-500">8 образцов кофе, обучение дескрипторам и колесу вкусов</p>
+                </div>
+              </div>
+              <div class="flex items-start gap-3">
+                <div class="w-8 h-8 rounded-lg bg-amber-100 dark:bg-amber-950 text-[#D97736] flex items-center justify-center flex-shrink-0">
+                  <i data-lucide="wifi" class="w-4 h-4"></i>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold text-stone-900 dark:text-stone-100">Зона для работы и встреч</h4>
+                  <p class="text-[11px] text-stone-500">Быстрый Wi-Fi, розетки у каждого стола, приятная виниловая музыка</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Reservation Form -->
+          <div class="lg:col-span-7 bg-white dark:bg-[#1A120C] p-6 sm:p-8 rounded-3xl border border-stone-200 dark:border-stone-800 shadow-xl">
+            <form id="reservation-form" class="space-y-4">
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-1">Ваше имя</label>
+                  <input id="reserve-name" type="text" required placeholder="Константин" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-[#D97736]" />
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-1">Телефон для связи</label>
+                  <input id="reserve-phone" type="tel" required placeholder="+7 (999) 000-00-00" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-[#D97736]" />
+                </div>
+              </div>
+
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                <div>
+                  <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-1">Тип брони</label>
+                  <select id="reserve-type" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-800 dark:text-stone-200">
+                    <option value="Столик в зале">Столик в зале</option>
+                    <option value="Субботний каппинг (12:00)">Субботний каппинг</option>
+                    <option value="Рабочая зона (тихий угол)">Рабочая зона</option>
+                  </select>
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-1">Дата</label>
+                  <input id="reserve-date" type="date" required value="2026-11-14" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-800 dark:text-stone-200" />
+                </div>
+                <div>
+                  <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-1">Время</label>
+                  <input id="reserve-time" type="time" required value="14:00" class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-800 dark:text-stone-200" />
+                </div>
+              </div>
+
+              <div>
+                <label class="text-xs font-bold text-stone-700 dark:text-stone-300 block mb-1">Количество гостей / пожелания</label>
+                <textarea rows="2" placeholder="2 персоны, столик у окна, если возможно..." class="w-full p-3 rounded-xl bg-stone-50 dark:bg-stone-900 border border-stone-200 dark:border-stone-700 text-xs text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-2 focus:ring-[#D97736]"></textarea>
+              </div>
+
+              <button 
+                type="submit" 
+                class="btn-touch w-full py-3.5 rounded-xl bg-[#D97736] hover:bg-[#C26325] text-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all active:scale-98"
+              >
+                <i data-lucide="check" class="w-4 h-4"></i> Подтвердить запись
+              </button>
+            </form>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+
+    <!-- ================= ABOUT & PHILOSOPHY ================= -->
+    <section id="about" class="py-16 sm:py-24 bg-stone-100/70 dark:bg-stone-950/40 border-t border-stone-200 dark:border-stone-800">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+          <div class="lg:col-span-6 relative">
+            <div class="rounded-3xl overflow-hidden shadow-xl aspect-[16/10] bg-stone-200">
+              <img 
+                src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?auto=format&fit=crop&w=1200&q=80" 
+                alt="Кофейня AURA интерьер" 
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+
+          <div class="lg:col-span-6 space-y-4">
+            <div class="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#D97736]">
+              <i data-lucide="heart" class="w-4 h-4"></i> Философия Aura Roasters
+            </div>
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-stone-900 dark:text-stone-100">
+              Мы верим, что кофе — это не просто кофеин. Это путешествие.
+            </h2>
+            <p class="text-sm text-stone-600 dark:text-stone-400 leading-relaxed">
+              Основанная в 2021 году шеф-бариста и сертифицированным Q-грейдером, Aura Roasters начиналась как маленькая лаборатория вкуса. Сегодня мы поставляем зерно в десятки лучших кофеен и каждый день варим чистый, яркий кофе для наших гостей.
+            </p>
+            <div class="grid grid-cols-2 gap-4 pt-2">
+              <div class="p-4 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+                <div class="font-serif text-2xl font-bold text-[#D97736] mb-1">12</div>
+                <div class="text-xs font-bold text-stone-800 dark:text-stone-200">Ферм-партнеров</div>
+                <div class="text-[11px] text-stone-500">Прямой экспорт без посредников</div>
+              </div>
+              <div class="p-4 rounded-2xl bg-white dark:bg-stone-900 border border-stone-200 dark:border-stone-800">
+                <div class="font-serif text-2xl font-bold text-stone-900 dark:text-stone-100 mb-1">100%</div>
+                <div class="text-xs font-bold text-stone-800 dark:text-stone-200">Экологичная упаковка</div>
+                <div class="text-[11px] text-stone-500">Биоразлагаемые стаканчики и пачки</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="bg-[#1A120B] text-stone-300 py-12 border-t border-stone-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-xl bg-[#D97736] flex items-center justify-center text-white font-bold">
+              <i data-lucide="coffee" class="w-4 h-4"></i>
+            </div>
+            <span class="font-serif text-xl font-bold text-white">AURA ROASTERS</span>
+          </div>
+          <p class="text-xs text-stone-400 leading-relaxed">
+            Спешелти кофейня и обжарочная станция. Чистый терруар, точная экстракция.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Локация</h4>
+          <p class="text-xs text-stone-400 leading-relaxed mb-1">Москва, ул. Покровка, 24</p>
+          <p class="text-xs text-stone-400 leading-relaxed mb-1">Метро Чистые пруды / Курская</p>
+          <p class="text-xs text-stone-500 mt-2">Вход со стороны тихого зеленого дворика</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Режим работы</h4>
+          <p class="text-xs text-stone-400 mb-1">Будни: 08:00 — 22:00</p>
+          <p class="text-xs text-stone-400 mb-1">Выходные: 09:00 — 23:00</p>
+          <p class="text-xs text-amber-500 font-semibold mt-2">Кухня и выпечка с 08:00</p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold text-white uppercase tracking-wider mb-3">Связь & Соцсети</h4>
+          <p class="text-xs text-stone-400 mb-2">hello@auracoffee.ru</p>
+          <p class="text-xs text-stone-400 mb-3">+7 (495) 120-88-90</p>
+          <div class="flex items-center gap-2 text-stone-400">
+            <a href="#" class="p-2 rounded-lg bg-stone-800 hover:text-[#D97736] transition-colors"><i data-lucide="instagram" class="w-4 h-4"></i></a>
+            <a href="#" class="p-2 rounded-lg bg-stone-800 hover:text-[#D97736] transition-colors"><i data-lucide="send" class="w-4 h-4"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-3">
+        <div>© 2026 AURA Specialty Coffee Roasters. Все права защищены.</div>
+        <div class="flex items-center gap-4">
+          <span class="text-stone-600">Сгенерировано в Google Antigravity /swarm</span>
+          <a href="#" class="hover:text-stone-300">Политика конфиденциальности</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ================= CART SLIDE-OUT DRAWER ================= -->
+  <div id="cart-backdrop" class="fixed inset-0 bg-stone-950/60 backdrop-blur-sm z-50 hidden transition-opacity"></div>
+
+  <aside 
+    id="cart-drawer" 
+    class="fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-[#1A120C] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 ease-in-out flex flex-col border-l border-stone-200 dark:border-stone-800"
+    role="dialog"
+    aria-label="Корзина заказа"
+  >
+    <!-- Drawer Header -->
+    <div class="p-5 border-b border-stone-200 dark:border-stone-800 flex items-center justify-between bg-stone-50 dark:bg-stone-900/50">
+      <div class="flex items-center gap-2 font-serif text-lg font-bold text-stone-900 dark:text-stone-100">
+        <i data-lucide="shopping-bag" class="w-5 h-5 text-[#D97736]"></i>
+        <span>Ваш заказ</span>
+      </div>
+      <button 
+        id="cart-close-btn" 
+        class="w-8 h-8 rounded-lg flex items-center justify-center text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 hover:bg-stone-200 dark:hover:bg-stone-800 cursor-pointer"
+        aria-label="Закрыть корзину"
+      >
+        <i data-lucide="x" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Drawer Content (Items List) -->
+    <div class="flex-1 overflow-y-auto p-5">
+      <div id="cart-items-container" class="space-y-3">
+        <!-- Dynamically rendered -->
+      </div>
+
+      <!-- Empty Cart State -->
+      <div id="cart-empty-state" class="text-center py-16">
+        <div class="w-16 h-16 rounded-2xl bg-stone-100 dark:bg-stone-800 text-stone-400 flex items-center justify-center mx-auto mb-4">
+          <i data-lucide="coffee" class="w-8 h-8"></i>
+        </div>
+        <h4 class="font-serif text-base font-bold text-stone-800 dark:text-stone-200 mb-1">В корзине пока пусто</h4>
+        <p class="text-xs text-stone-500 mb-4 max-w-xs mx-auto">Добавьте любимый напиток, свежее зерно или хрустящий миндальный круассан из меню.</p>
+        <button onclick="document.getElementById('cart-close-btn').click();" class="px-4 py-2 rounded-xl bg-[#D97736] text-white text-xs font-bold cursor-pointer">
+          Перейти в меню
+        </button>
+      </div>
+    </div>
+
+    <!-- Drawer Footer (Summary & Checkout) -->
+    <div id="cart-summary-section" class="p-5 border-t border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-900/70 space-y-3 hidden">
+      <!-- Promo code input -->
+      <div class="flex items-center gap-2">
+        <input 
+          id="promo-input" 
+          type="text" 
+          placeholder="Промокод (например: AURA10)" 
+          class="flex-1 p-2.5 rounded-xl bg-white dark:bg-stone-800 border border-stone-200 dark:border-stone-700 text-xs uppercase font-semibold text-stone-900 dark:text-stone-100 focus:outline-none focus:ring-1 focus:ring-[#D97736]"
+        />
+        <button 
+          id="apply-promo-btn" 
+          class="px-3.5 py-2.5 rounded-xl bg-stone-800 dark:bg-stone-700 text-white text-xs font-semibold hover:bg-stone-900 cursor-pointer"
+        >
+          Применить
+        </button>
+      </div>
+
+      <!-- Order Subtotals -->
+      <div class="space-y-1.5 text-xs pt-1">
+        <div class="flex justify-between text-stone-600 dark:text-stone-400">
+          <span>Сумма позиций:</span>
+          <span id="cart-subtotal" class="font-medium text-stone-900 dark:text-stone-100">0 ₽</span>
+        </div>
+        <div id="cart-discount-row" class="flex justify-between text-emerald-600 dark:text-emerald-400 font-medium hidden">
+          <span>Скидка по промокоду:</span>
+          <span id="cart-discount-amount">0 ₽</span>
+        </div>
+        <div class="flex justify-between text-stone-900 dark:text-stone-100 font-bold text-sm pt-2 border-t border-stone-200 dark:border-stone-700">
+          <span>Итого к оплате:</span>
+          <span id="cart-total" class="text-base text-[#D97736]">0 ₽</span>
+        </div>
+      </div>
+
+      <!-- Checkout Button -->
+      <button 
+        id="checkout-btn" 
+        class="btn-touch w-full py-3.5 rounded-xl bg-[#D97736] hover:bg-[#C26325] text-white font-bold text-xs flex items-center justify-center gap-2 cursor-pointer shadow-md transition-all active:scale-98"
+      >
+        <i data-lucide="check" class="w-4 h-4"></i> Оформить заказ (Самовывоз через 15 мин)
+      </button>
+      <p class="text-[10px] text-center text-stone-400">Заказ поступит бариста на бар сразу после подтверждения</p>
+    </div>
+  </aside>
+
+
+  <!-- ================= ORDER SUCCESS MODAL ================= -->
+  <div id="order-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm hidden">
+    <div class="bg-white dark:bg-[#1A120C] rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-stone-200 dark:border-stone-800 shadow-2xl text-center space-y-4">
+      <div class="w-14 h-14 rounded-2xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 flex items-center justify-center mx-auto">
+        <i data-lucide="check-circle-2" class="w-8 h-8"></i>
+      </div>
+      <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">Заказ принят в работу!</h3>
+      <p class="text-xs text-stone-500 leading-relaxed">
+        Бариста уже готовит ваши позиции. Номер вашего заказа:
+      </p>
+      <div class="p-3 bg-stone-100 dark:bg-stone-900 rounded-xl font-mono text-xl font-extrabold text-[#D97736]">
+        <span id="order-modal-id">AUR-847291</span>
+      </div>
+      <p class="text-[11px] text-stone-400">
+        Время готовности: через ~15 минут. Назовите номер заказа на кассе в баре.
+      </p>
+      <button onclick="closeOrderModal()" class="w-full py-3 rounded-xl bg-[#D97736] hover:bg-[#C26325] text-white text-xs font-bold cursor-pointer">
+        Отлично, спасибо!
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ================= BOOKING SUCCESS MODAL ================= -->
+  <div id="booking-success-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-stone-950/70 backdrop-blur-sm hidden">
+    <div class="bg-white dark:bg-[#1A120C] rounded-3xl p-6 sm:p-8 max-w-sm w-full border border-stone-200 dark:border-stone-800 shadow-2xl text-center space-y-4">
+      <div class="w-14 h-14 rounded-2xl bg-amber-100 dark:bg-amber-950/70 text-[#D97736] flex items-center justify-center mx-auto">
+        <i data-lucide="calendar-check" class="w-8 h-8"></i>
+      </div>
+      <h3 class="font-serif text-xl font-bold text-stone-900 dark:text-stone-100">Бронь подтверждена!</h3>
+      <div id="booking-modal-details" class="p-3 bg-stone-100 dark:bg-stone-900 rounded-xl text-xs font-semibold text-stone-800 dark:text-stone-200">
+        Столик в зале: Константин, 2026-11-14 в 14:00
+      </div>
+      <p class="text-xs text-stone-500">
+        Мы выслали SMS с подтверждением. Ждем вас в гости в Aura Roasters!
+      </p>
+      <button onclick="closeBookingModal()" class="w-full py-3 rounded-xl bg-[#D97736] hover:bg-[#C26325] text-white text-xs font-bold cursor-pointer">
+        Понятно
+      </button>
+    </div>
+  </div>
+
+
+  <!-- ================= TOAST NOTIFICATION ROOT ================= -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- Application Script -->
+  <script src="app.js"></script>
+</body>
+</html>
