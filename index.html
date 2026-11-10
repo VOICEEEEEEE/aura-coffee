@@ -188,18 +188,18 @@
                   alt="Specialty Coffee Pour Over V60" 
                   class="w-full h-full object-cover"
                 />
-                <div class="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-transparent to-transparent"></div>
-                <div class="absolute bottom-6 left-6 right-6 text-white">
+                <div class="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-stone-950/30 to-transparent"></div>
+                <div class="absolute bottom-6 left-6 right-6 text-white z-10">
                   <span class="px-3 py-1 rounded-full bg-[#D97736] text-[11px] font-bold uppercase tracking-wider mb-2 inline-block">
                     Лот недели
                   </span>
-                  <h3 class="font-serif text-xl font-bold">Эфиопия Гуджи Хамбела</h3>
-                  <p class="text-xs text-stone-300 mt-1">Ноты белого жасмина, бергамота и сочного спелого персика</p>
+                  <h3 class="font-serif text-xl sm:text-2xl font-bold">Эфиопия Гуджи Хамбела</h3>
+                  <p class="text-xs text-stone-300 mt-1 leading-relaxed">Ноты белого жасмина, бергамота и сочного спелого персика</p>
                 </div>
               </div>
 
-              <!-- Floating Card 1: Roasting Quality -->
-              <div class="absolute -bottom-6 -left-6 bg-white dark:bg-stone-900 p-4 rounded-2xl shadow-xl border border-stone-200 dark:border-stone-800 max-w-[210px] hidden sm:flex items-center gap-3 animate-float">
+              <!-- Floating Card 1: Roasting Quality (positioned up on the left so it never covers bottom text) -->
+              <div class="absolute top-20 -left-6 bg-white dark:bg-stone-900 p-3.5 sm:p-4 rounded-2xl shadow-xl border border-stone-200 dark:border-stone-800 max-w-[210px] hidden sm:flex items-center gap-3 animate-float z-20">
                 <div class="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/70 text-[#D97736] flex items-center justify-center flex-shrink-0">
                   <i data-lucide="thermometer" class="w-5 h-5"></i>
                 </div>
@@ -210,7 +210,7 @@
               </div>
 
               <!-- Floating Card 2: Barista Champion -->
-              <div class="absolute -top-6 -right-6 bg-white dark:bg-stone-900 p-4 rounded-2xl shadow-xl border border-stone-200 dark:border-stone-800 max-w-[200px] hidden sm:flex items-center gap-3">
+              <div class="absolute -top-6 -right-6 bg-white dark:bg-stone-900 p-3.5 sm:p-4 rounded-2xl shadow-xl border border-stone-200 dark:border-stone-800 max-w-[200px] hidden sm:flex items-center gap-3 z-20">
                 <div class="w-10 h-10 rounded-xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-600 flex items-center justify-center flex-shrink-0">
                   <i data-lucide="check-circle" class="w-5 h-5"></i>
                 </div>
@@ -697,8 +697,7 @@
       <div class="pt-6 border-t border-stone-800 flex flex-col sm:flex-row items-center justify-between text-xs text-stone-500 gap-3">
         <div>© 2026 AURA Specialty Coffee Roasters. Все права защищены.</div>
         <div class="flex items-center gap-4">
-          <span class="text-stone-600">Сгенерировано в Google Antigravity /swarm</span>
-          <a href="#" class="hover:text-stone-300">Политика конфиденциальности</a>
+          <a href="#" class="hover:text-stone-300 transition-colors">Политика конфиденциальности</a>
         </div>
       </div>
     </div>

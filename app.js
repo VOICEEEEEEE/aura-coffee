@@ -1,5 +1,4 @@
 // Aura Specialty Coffee - Core Application Logic
-// Orchestrated via Swarm Preview Agent Architecture
 
 const MENU_DATA = [
   // --- Фильтр & Альтернатива ---
