@@ -270,6 +270,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initQuiz();
   initBrewCalculator();
   initReservation();
+  initSmoothScroll();
   initLucide();
   initRoastCountdown();
 });
@@ -898,3 +899,70 @@ function showToast(message, type = 'info') {
     setTimeout(() => toast.remove(), 300);
   }, 3200);
 }
+
+// ----------------- SMOOTH SCROLL & NAVIGATION -----------------
+function initSmoothScroll() {
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (!targetId) return;
+
+      if (targetId === '#' || targetId === '#top') {
+        e.preventDefault();
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+        return;
+      }
+
+      const targetEl = document.querySelector(targetId);
+      if (targetEl) {
+        e.preventDefault();
+
+        // If cart drawer is open, close it smoothly first
+        const cartDrawer = document.getElementById('cart-drawer');
+        const cartBackdrop = document.getElementById('cart-backdrop');
+        if (cartDrawer && !cartDrawer.classList.contains('translate-x-full')) {
+          cartDrawer.classList.add('translate-x-full');
+          if (cartBackdrop) cartBackdrop.classList.add('hidden');
+          document.body.classList.remove('overflow-hidden');
+        }
+
+        const headerHeight = 88;
+        const targetTop = targetEl.getBoundingClientRect().top + window.pageYOffset - headerHeight;
+
+        window.scrollTo({
+          top: Math.max(0, targetTop),
+          behavior: 'smooth'
+        });
+
+        if (history.pushState) {
+          history.pushState(null, null, targetId);
+        }
+      }
+    });
+  });
+
+  // Floating Back to Top Button
+  const scrollTopBtn = document.getElementById('scroll-to-top-btn');
+  if (scrollTopBtn) {
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 350) {
+        scrollTopBtn.classList.remove('opacity-0', 'pointer-events-none', 'translate-y-4');
+        scrollTopBtn.classList.add('opacity-100', 'translate-y-0');
+      } else {
+        scrollTopBtn.classList.add('opacity-0', 'pointer-events-none', 'translate-y-4');
+        scrollTopBtn.classList.remove('opacity-100', 'translate-y-0');
+      }
+    }, { passive: true });
+
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  }
+}
+
